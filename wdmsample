@@ -1,0 +1,55 @@
+[Version]
+Signature="$WINDOWS NT$"
+Class=%WDMSAMPLECLASS%
+ClassGuid={8E68B867-6DBA-44C9-A368-C528987EFD33}
+Provider=%PROVIDER%
+DriverVer=
+CatalogFile=WDMSAMPLE.cat
+
+[ClassInstall32]
+AddReg=AddHwClass
+
+[AddHwClass]
+HKR,,,,%WDMSAMPLEClass%
+HKR,,Icon,,-31
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[DestinationDirs]
+DefaultDestDir = 12
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+WDMSAMPLE.sys=1
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%WDMSAMPLEDEVICE% =WDMSAMPLEInst, AAA\BBB
+
+[WDMSAMPLEInst.NT]
+CopyFiles = WDMSAMPLEInst.NT.Copy
+
+[WDMSAMPLEInst.NT.Copy]
+WDMSAMPLE.sys
+
+[WDMSAMPLEInst.NT.Services]
+AddService= WDMSAMPLE, 0x00000002, WDMSAMPLEInst_Service_Inst
+
+[WDMSAMPLEInst_Service_Inst]
+DisplayName     = "HAJESOFT Sample Device Driver"                           
+ServiceType     = 1                  ; SERVICE_KERNEL_DRIVER
+StartType       = 3                  ; SERVICE_DEMAND_START
+ErrorControl    = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary   = %12%\WDMSAMPLE.sys   
+
+[Strings]
+ManufacturerName="HAJESOFT"
+DiskName="HAJESOFT WDM Sample Driver Source Disk"
+PROVIDER="HAJESOFT"
+WDMSAMPLEDEVICE="HAJESOFT Sample Device"
+WDMSAMPLECLASS="HAJESOFT Sample Class"
